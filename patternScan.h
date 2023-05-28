@@ -97,7 +97,8 @@ struct sect_info {
             const uintptr_t current_end = sectionStart + i + scan_size;
             if (current_end > sectionEnd)
                 break;
-
+ 
+	//oh shit i just noticed, i think u should use rpm here
             if (!compare(reinterpret_cast<const char *>(sectionStart + i), pattern, mask))
                 continue;
 
