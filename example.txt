@@ -1,0 +1,19 @@
+#include "patternScan.h"
+
+//some code
+#define ARM64_NOP "\x1F\x20\x03\xD5"
+
+__attribute__((constructor)) static void initialize() {
+
+const uintptr_t base = _dyld_get_image_header(0);
+task_t task = mach_task_self();
+seg_info seginfo = get_segment(base, "__TEXT", task);
+sect_info sectinfo = get_section(seginfo, "__text", task);
+
+
+//for known bytes 'x' for unknown '?'
+uintptr_t scanResult = scan(sectinfo, ARM64_NOP, "xxxx"); 
+
+NSLog(@"%2x", scanResult);
+
+}
